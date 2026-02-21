@@ -1,0 +1,19 @@
+{
+    "brand": {
+        "name": "Transport Booking",
+        "logo": "",
+        "colors": {
+            "primary": "#0f172a",
+            "accent": "#22c55e"
+        }
+    },
+    "features": {
+        "transfers": true,
+        "excursions": false,
+        "online_payment": false
+    },
+    "header": {
+        "show_phone": true,
+        "show_whatsapp": true
+    }
+}

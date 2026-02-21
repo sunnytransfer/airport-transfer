@@ -1,0 +1,5 @@
+/* Performance-first: skip rendering offscreen sections */
+[data-below-fold="true"] {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}

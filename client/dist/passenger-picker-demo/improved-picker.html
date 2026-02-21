@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Selector - Booking.com Style</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+
+        /* Trigger Button */
+        .passenger-dropdown {
+            position: relative;
+            display: inline-block;
+            width: 250px;
+        }
+
+        .passenger-dropdown button {
+            width: 100%;
+            padding: 12px 16px;
+            text-align: left;
+            background: #fff;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .passenger-dropdown button .arrow {
+            font-size: 12px;
+        }
+
+        /* Modal / Dropdown Container */
+        .passenger-options {
+            display: none;
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            border-radius: 4px;
+            margin-top: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Option Styles */
+        .passenger-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            /* Space for checkmark */
+            align-items: center;
+        }
+
+        .passenger-option:hover {
+            background: #f5f5f5;
+        }
+
+        /* Selected State - Desktop (Default blue highlight for text) */
+        .passenger-option.selected {
+            background-color: #e6f0fa;
+            color: #006ce4;
+            font-weight: 600;
+        }
+
+        .check-mark {
+            display: none;
+            color: #006ce4;
+            font-weight: bold;
+        }
+
+        .passenger-option.selected .check-mark {
+            display: block;
+        }
+
+        /* MOBILE POPUP STYLES (iOS Style) */
+        @media (max-width: 768px) {
+
+            /* Backdrop */
+            .passenger-backdrop {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.6);
+                backdrop-filter: blur(8px);
+                z-index: 2000;
+            }
+
+            .passenger-backdrop.open {
+                display: block;
+            }
+
+            /* Override Dropdown to act as Centered Modal */
+            .passenger-options {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                /* Centered */
+                width: 90%;
+                max-width: 340px;
+                max-height: 80vh;
+                margin-top: 0;
+                z-index: 2001;
+
+                /* Glass / White Style */
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                border: none;
+                box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+                border-radius: 12px;
+            }
+
+            .passenger-option {
+                padding: 16px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                /* Divider */
+                color: #333;
+            }
+
+            /* Selected State - Booking.com Mobile Blue */
+            .passenger-option.selected {
+                background-color: #006ce4;
+                color: white;
+                border-bottom: none;
+            }
+
+            .passenger-option.selected .check-mark {
+                color: white;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Backdrop Element for Mobile -->
+    <div class="passenger-backdrop" id="passengerBackdrop"></div>
+
+    <div class="passenger-dropdown">
+        <button id="passengerBtn">
+            <span id="btnText">2 Passengers</span>
+            <span class="arrow">▼</span>
+        </button>
+        <div class="passenger-options" id="passengerOptions">
+            <!-- Options will be added by JS -->
+        </div>
+    </div>
+
+    <script>
+        const passengerBtn = document.getElementById('passengerBtn');
+        const btnText = document.getElementById('btnText');
+        const passengerOptions = document.getElementById('passengerOptions');
+        const passengerBackdrop = document.getElementById('passengerBackdrop');
+
+        let currentSelection = 2; // Default to 2
+
+        // Helper to open/close
+        function toggleDropdown(show) {
+            const isMobile = window.innerWidth <= 768;
+
+            if (show) {
+                passengerOptions.style.display = 'block';
+                if (isMobile) passengerBackdrop.classList.add('open');
+
+                // Scroll to selected
+                setTimeout(() => {
+                    const selectedEl = passengerOptions.querySelector('.selected');
+                    if (selectedEl) selectedEl.scrollIntoView({ block: 'center' });
+                }, 10);
+            } else {
+                passengerOptions.style.display = 'none';
+                passengerBackdrop.classList.remove('open');
+            }
+        }
+
+        // Create options 1–16
+        function renderOptions() {
+            passengerOptions.innerHTML = '';
+            for (let i = 1; i <= 16; i++) {
+                const option = document.createElement('div');
+                option.className = 'passenger-option';
+                if (i === currentSelection) option.classList.add('selected');
+
+                const label = i + (i === 1 ? ' Passenger' : ' Passengers');
+
+                option.innerHTML = `
+            <span>${label}</span>
+            <span class="check-mark">✓</span>
+        `;
+
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent closing immediately if we want animation? Usually immediate.
+                    currentSelection = i;
+                    btnText.textContent = label;
+                    toggleDropdown(false);
+                    renderOptions(); // Re-render to update selection style
+                });
+                passengerOptions.appendChild(option);
+            }
+        }
+
+        // Initial Render
+        renderOptions();
+
+        // Toggle dropdown click
+        passengerBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = passengerOptions.style.display === 'block';
+            toggleDropdown(!isVisible);
+        });
+
+        // Close if clicked outside or on backdrop
+        document.addEventListener('click', (e) => {
+            if (!passengerBtn.contains(e.target) && !passengerOptions.contains(e.target)) {
+                toggleDropdown(false);
+            }
+        });
+
+        passengerBackdrop.addEventListener('click', () => {
+            toggleDropdown(false);
+        });
+
+        // Re-render on resize to handle mobile/desktop switch cleanly if open (optional)
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "min_pax": 1,
+    "max_pax": 4,
+    "vehicle_name": "Standard Sedan",
+    "one_way_price": 40,
+    "return_price": 75,
+    "max_bags": 3
+  },
+  {
+    "id": 2,
+    "min_pax": 5,
+    "max_pax": 7,
+    "vehicle_name": "Mercedes Vito",
+    "one_way_price": 50,
+    "return_price": 95,
+    "max_bags": 7
+  },
+  {
+      "id": 3,
+      "min_pax": 8,
+      "max_pax": 16,
+      "vehicle_name": "Mercedes Sprinter",
+      "one_way_price": 75,
+      "return_price": 140,
+      "max_bags": 16
+  }
+]

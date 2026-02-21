@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Picker Component Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="font-family: sans-serif; padding: 50px; background: #f4f4f4;">
+
+    <h1>Independent Component Demo</h1>
+    <p>This is a standalone demo of the Passenger Picker component.</p>
+    
+    <!-- COMPONENT HTML START -->
+    <!-- Passenger Picker Trigger Button -->
+    <button id="pp-trigger-btn" class="pp-trigger-btn">
+        <span id="pp-selected-count">2</span> Passengers
+        <span class="pp-arrow">▼</span>
+    </button>
+
+    <!-- Passenger Picker Modal Overlay -->
+    <div id="pp-modal-overlay" class="pp-modal-overlay">
+        <div class="pp-modal">
+            <div class="pp-header">
+                <span class="pp-title">Select Passengers</span>
+                <button id="pp-close-btn" class="pp-close-btn">×</button>
+            </div>
+            <div class="pp-list-container">
+                <ul id="pp-list" class="pp-list">
+                    <!-- List items will be injected by JS -->
+                </ul>
+            </div>
+            <div class="pp-footer">
+                 <button id="pp-apply-btn" class="pp-apply-btn">Apply</button>
+            </div>
+        </div>
+    </div>
+    <!-- COMPONENT HTML END -->
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+/* --- Independent Passenger Picker Styles --- */
+
+/* Base Font */
+.pp-modal-overlay * {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Trigger Button (Example Style) */
+.pp-trigger-btn {
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Modal Overlay - The Blurred Backdrop */
+.pp-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Dark transparency */
+    backdrop-filter: blur(8px);
+    /* The iOS Blur Effect */
+    z-index: 99999;
+    /* Ensure it's on top of everything */
+    display: none;
+    /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pp-modal-overlay.pp-open {
+    display: flex;
+    opacity: 1;
+}
+
+/* The Modal Card */
+.pp-modal {
+    background: white;
+    width: 90%;
+    max-width: 360px;
+    max-height: 80vh;
+    border-radius: 16px;
+    /* iOS Rounded Corners */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pp-modal-overlay.pp-open .pp-modal {
+    transform: scale(1);
+}
+
+/* Header */
+.pp-header {
+    padding: 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+}
+
+.pp-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.pp-close-btn {
+    background: none;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    color: #999;
+    padding: 0 8px;
+}
+
+/* Scrollable List */
+.pp-list-container {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll on iOS */
+    flex: 1;
+}
+
+.pp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pp-item {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-weight: 500;
+}
+
+.pp-item:hover {
+    background-color: #f9f9f9;
+}
+
+/* Selected State - Booking.com Blue style */
+.pp-item.pp-selected {
+    background-color: #006ce4;
+    color: white;
+    font-weight: 600;
+    border-bottom-color: #005bb5;
+}
+
+.pp-checkmark {
+    display: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.pp-item.pp-selected .pp-checkmark {
+    display: block;
+}
+
+/* Footer / Apply Button */
+.pp-footer {
+    padding: 16px;
+    border-top: 1px solid #f0f0f0;
+    background: white;
+}
+
+.pp-apply-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #006ce4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.pp-apply-btn:hover {
+    background-color: #005bb5;
+}

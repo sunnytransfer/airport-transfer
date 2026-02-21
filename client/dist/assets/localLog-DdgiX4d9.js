@@ -1,0 +1,1 @@
+function a(o){const t=localStorage.getItem("booking:log"),e=t?JSON.parse(t):[];e.unshift({id:Date.now(),createdAt:new Date().toISOString(),...o}),localStorage.setItem("booking:log",JSON.stringify(e))}function n(){const o=localStorage.getItem("booking:log");return(o?JSON.parse(o):[]).sort((t,e)=>e.id-t.id)}export{n as g,a as s};
