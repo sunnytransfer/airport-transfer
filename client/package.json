@@ -3,11 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=18.18.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "size": "size-limit"
   },
   "dependencies": {
@@ -33,21 +36,9 @@
     "vite": "^5.0.0"
   },
   "size-limit": [
-    {
-      "path": "dist/assets/index-*.js",
-      "limit": "25 KB"
-    },
-    {
-      "path": "dist/assets/react-vendor-*.js",
-      "limit": "60 KB"
-    },
-    {
-      "path": "dist/assets/axios-*.js",
-      "limit": "25 KB"
-    },
-    {
-      "path": "dist/assets/vendor-*.js",
-      "limit": "45 KB"
-    }
+    { "path": "dist/assets/index-*.js", "limit": "25 KB" },
+    { "path": "dist/assets/react-vendor-*.js", "limit": "60 KB" },
+    { "path": "dist/assets/axios-*.js", "limit": "25 KB" },
+    { "path": "dist/assets/vendor-*.js", "limit": "45 KB" }
   ]
 }
